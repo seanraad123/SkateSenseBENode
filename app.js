@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const graphqlHttp = require('express-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 
 app.use(
@@ -14,7 +16,6 @@ app.use(
       request,
       response,
       graphQLParams,
-      io,
     },
     customFormatErrorFn: error => {
       console.log(error);
@@ -33,13 +34,4 @@ app.use(
 
 
 mongoose.connect('mongodb://127.0.0.1:27017', {useNewUrlParser: true, useUnifiedTopology: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log('GETTING HERE!')
-    var kittySchema = new mongoose.Schema({
-        name: String
-      });
-});
-
 app.listen(4000);
