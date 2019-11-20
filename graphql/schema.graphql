@@ -13,8 +13,9 @@ type Spot {
   owner: User
   description: String
   bookmarks: [Bookmark]
-  image: Image
+  images: [Image]
   location: Location
+  kickout_level: Int
 }
 
 type Bookmark{
@@ -26,6 +27,7 @@ type Bookmark{
 type Image {
   _id: ID!
   public_url: String
+  base64: String
   createdAt: String!
 }
 
@@ -73,6 +75,9 @@ type RootMutation {
   createUser(userInput: userInputData): User!
   createSpot(spotInput: spotInputData): Spot!
   createBookmark(bookmarkInput: bookmarkInputData): Bookmark!
+  deleteBookmark(_id: ID!): String!
+  deleteSpot(_id: ID!): String!
+  deleteUser(_id: ID!): String!
 }
 
 schema {
