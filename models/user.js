@@ -14,6 +14,11 @@ const userSchema = new Schema({
     type: String,
     required: false
   },
+  bookmarks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Bookmark',
+    required: true
+  }]
 }, {
   timestamps: true
 });

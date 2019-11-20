@@ -3,7 +3,6 @@ const Location = require("../../models/location")
 const Image = require("../../models/image")
 
 module.exports = async function createSpot({ spotInput }, req) {
-    // console.log('SPOT INPUT----', spotInput.location)
 
     try {
         let createdLocation = new Location ({
@@ -13,43 +12,38 @@ module.exports = async function createSpot({ spotInput }, req) {
 
         await createdLocation.save();
 
-        let imageIDs = []
 
         const images = spotInput.images.map(async (i) => {
             const createdImage = new Image ({
                 base64: i.base64
             })
             await createdImage.save();
-            return createdImage
+            return createdImage;
         })
 
-        Promise.all(images).then(function(values) {
-            values.forEach(i => imageIDs.push(i._id))
-          });
 
-        console.log(imageIDs);
+        const imageObjects = await Promise.all(images.map(async (image) => {
+           return await image
+        }))
+
+        const imageIDs = imageObjects.map(i => i._id);
         
 
+        let createdSpot = new Spot({
+            name: spotInput.name,
+            owner: spotInput.owner,
+            kickout_level: spotInput.kickout_level,
+            description: spotInput.description,
+            location: createdLocation._id,
+            images: imageIDs
+        });
 
-        // let createdSpot = new Spot({
-        //     name: spotInput.name,
-        //     owner: spotInput.owner,
-        //     kickout_level: spotInput.kickout_level,
-        //     description: spotInput.description,
-        //     location: spotInput.location,
-        // });
+        await createdSpot.save();
 
-        // await Building.findOneAndUpdate(
-        //     { _id: buildingID },
-        //     { $set: { "logo" : logo._id } }
-        //   );
-
-        // createdSpot.push('images', spotInput.images)
-        // createdSpot.set('location', spotInput.location)
-
-        // console.log(createdSpot)
-
-        // await createdSpot.save();
+        return {
+            ...createdSpot._doc,
+            _id: createdSpot._id.toString(),
+        };
     }
     catch (e) {
         return new Error(e)

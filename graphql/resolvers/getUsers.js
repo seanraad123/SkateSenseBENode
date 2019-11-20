@@ -7,7 +7,7 @@ module.exports = async function getUsers(req) {
   console.log(userList)
   
   if (userList === null) {
-    const errorGetUsers = new Error('{"errorGetUsers":"Cannot find users"}');
+    const errorGetUsers = new Error("Cannot find users");
     errorGetUsers.code = 404;
 
     throw errorGetUsers;

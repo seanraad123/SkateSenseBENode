@@ -28,7 +28,12 @@ const spotSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    bookmarks: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Bookmark',
+        required: true
+    }]
 
   }, {
     timestamps: true

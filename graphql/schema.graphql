@@ -4,6 +4,7 @@ type User {
   email: String!
   password: String
   jwt: String
+  bookmarks: [Bookmark]
 }
 
 type Spot {
@@ -11,9 +12,15 @@ type Spot {
   name: String
   owner: User
   description: String
-  bookmark: Boolean
+  bookmarks: [Bookmark]
   image: Image
   location: Location
+}
+
+type Bookmark{
+  _id: ID!
+  user: User
+  spot: Spot
 }
 
 type Image {
@@ -28,6 +35,11 @@ type Location {
   longitude: String
 }
 
+input bookmarkInputData {
+  user: String!
+  spot: String!
+}
+
 input LocationInput {
   latitude: String
   longitude: String
@@ -37,7 +49,7 @@ input ImageInputData {
   base64: String
 }
 
-input UserInputData {
+input userInputData {
   email: String!
   name: String!
   password: String!
@@ -58,8 +70,9 @@ type RootQuery {
 }
 
 type RootMutation {
-  createUser(userInput: UserInputData): User!
+  createUser(userInput: userInputData): User!
   createSpot(spotInput: spotInputData): Spot!
+  createBookmark(bookmarkInput: bookmarkInputData): Bookmark!
 }
 
 schema {
