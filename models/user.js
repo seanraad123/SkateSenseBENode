@@ -14,11 +14,6 @@ const userSchema = new Schema({
     type: String,
     required: false
   },
-  profilepic: {
-    type: String,
-    default: 'https://storage.googleapis.com/constry-app/21294.png',
-    required: false
-  },
 }, {
   timestamps: true
 });
