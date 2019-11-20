@@ -14,6 +14,7 @@ module.exports = async function getSpots(req) {
     {
         path: 'bookmarks',
         model: 'Bookmark',
+        populate: { path: 'user', model: 'User'}
     },
   ]);
   
