@@ -38,8 +38,8 @@ type Location {
 }
 
 input bookmarkInputData {
-  user: String!
-  spot: String!
+  user_id: String!
+  spot_id: String!
 }
 
 input LocationInput {
@@ -78,6 +78,7 @@ type RootMutation {
   deleteBookmark(_id: ID!): String!
   deleteSpot(_id: ID!): String!
   deleteUser(_id: ID!): String!
+  getBookmarkedSpots(user_id: ID!): [Spot]
 }
 
 schema {

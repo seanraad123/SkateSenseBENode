@@ -7,4 +7,5 @@ module.exports = {
     deleteSpot: require("./deleteSpot"),
     createBookmark: require("./createBookmark"),
     deleteBookmark: require("./deleteBookmark"),
+    getBookmarkedSpots: require("./getBookmarkedSpots")
 }

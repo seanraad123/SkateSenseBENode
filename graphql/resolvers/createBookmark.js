@@ -5,7 +5,7 @@ const Spot = require("../../models/spot")
 module.exports = async function createBookmark({ bookmarkInput }, req) {
 
     const existingBookmark = await Bookmark.findOne(
-        { spot: bookmarkInput.spot, user: bookmarkInput.user }
+        { spot_id: bookmarkInput.spot_id, user_id: bookmarkInput.user_id }
     );
 
     if(existingBookmark !== null){
@@ -14,8 +14,8 @@ module.exports = async function createBookmark({ bookmarkInput }, req) {
     
     try {
         let createdBookmark = new Bookmark({
-            user: bookmarkInput.user,
-            spot: bookmarkInput.spot,
+            user_id: bookmarkInput.user_id,
+            spot_id: bookmarkInput.spot_id,
         });
 
         await createdBookmark.save();
