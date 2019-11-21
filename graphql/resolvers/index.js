@@ -1,5 +1,6 @@
 module.exports = {
     getUsers: require("./getUsers"),
+    getUserCreatedSpots: require("./getUserCreatedSpots"),
     deleteUser: require("./createUser"),
     createUser: require("./createUser"),
     createSpot: require("./createSpot"),

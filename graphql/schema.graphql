@@ -78,7 +78,8 @@ type RootMutation {
   deleteBookmark(_id: ID!): String!
   deleteSpot(_id: ID!): String!
   deleteUser(_id: ID!): String!
-  getBookmarkedSpots(user_id: ID!): [Spot]
+  getUserCreatedSpots(user_id: ID!): [Spot]
+  getBookmarkedSpots(user_id: ID!): [Bookmark]
 }
 
 schema {
