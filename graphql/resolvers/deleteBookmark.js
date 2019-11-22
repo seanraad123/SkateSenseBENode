@@ -1,18 +1,16 @@
-const Bookmark = require("../../models/bookmark")
+const Spot = require('../../models/spot');
+const User = require('../../models/user')
 
 
-module.exports = async function deleteBookmark({ _id }, req) {
-    
-    try{
-        const bookmark = await Bookmark.findById(_id);
-    }
-    catch (e){
-        throw new Error ('Could not find bookmark')
-    }
+module.exports = async function deleteBookmark({ bookmarkInput }, req) {
+  console.log(req);
+  
 
-    await Bookmark.findByIdAndDelete({
-        _id
-    });
+    // deconstruct
+  const { spot_id } = bookmarkInput;
 
-    return "Bookmark was deleted";
-}
+
+ 
+
+  return 'Bookmark was deleted';
+};

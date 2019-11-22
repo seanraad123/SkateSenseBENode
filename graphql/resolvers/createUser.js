@@ -1,7 +1,8 @@
-const User = require("../../models/user");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const User = require("../../models/user");
+const setting = require("../../settings/settings")
 
 module.exports = async function createUser({ userInput }, req) {
 
@@ -31,17 +32,32 @@ module.exports = async function createUser({ userInput }, req) {
         createdUser = new User({
             email: userInput.email,
             name: userInput.name,
-            password: userInput.password,
+            password: hashedPw,
         });
 
         await createdUser.save();
     }
     catch (errorCreateingUser) {
-        throw new Error("Cannot create the user")
+      throw new Error("Cannot create the user")
+    }
+
+    let token;
+    try {
+      token = jwt.sign(
+        {
+          userID: createdUser._id.toString(),
+          email: createdUser.email
+        },
+        setting.system.secretkey,
+        { expiresIn: "24h" }
+      );
+    } catch (e) {
+      throw new Error("Cannot create the token");
     }
         
     return {
         ...createdUser._doc,
         _id: createdUser._id.toString(),
+        token
     };
 }

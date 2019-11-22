@@ -1,44 +1,42 @@
-const Bookmark = require("../../models/bookmark")
-const User = require("../../models/user")
-const Spot = require("../../models/spot")
+const User = require('../../models/user');
+const Spot = require('../../models/spot');
 
 module.exports = async function createBookmark({ bookmarkInput }, req) {
+  // deconstruct
+  const { spot_id, user_id } = bookmarkInput;
 
-    const existingBookmark = await Bookmark.findOne(
-        { spot_id: bookmarkInput.spot_id, user_id: bookmarkInput.user_id }
+
+  // ? get user id from req
+  // ? !isUser send error
+
+  // start try block
+  try {
+    // find spot
+    const spot = await Spot.findOne({ _id: spot_id });
+    // if no spot found and no error is thrown return your own
+    if (!spot) {
+      throw new Error('420: No spot found.');
+    }
+
+    // get user
+    const user = await User.findOneAndUpdate(
+      { _id: user_id },
+      {
+        $push: {
+          bookmarks: spot_id,
+        },
+      },
     );
 
-    if(existingBookmark !== null){
-        throw new Error("Spot has already been bookmarked")
+    // no user found and no error thrown return your own
+    if (!user) {
+      throw new Error('423: No user found.');
     }
-    
-    try {
-        let createdBookmark = new Bookmark({
-            user_id: bookmarkInput.user_id,
-            spot_id: bookmarkInput.spot_id,
-        });
-
-        await createdBookmark.save();
+    console.log(spot);
 
 
-        await User.findOneAndUpdate(
-            { _id: bookmarkInput.user},
-            { $set: { "bookmarks" : [createdBookmark._id] } }
-        )
-
-        await Spot.findOneAndUpdate(
-            { _id: bookmarkInput.spot},
-            { $set: { "bookmarks" : [createdBookmark._id] } }
-        )
-
-
-        return {
-            ...createdBookmark._doc,
-            _id: createdBookmark._id.toString(),
-        };
-        
-    } catch (e) {
-        return new Error(e)
-    }
-
-}
+    return spot;
+  } catch (e) {
+    throw new Error(e);
+  }
+};

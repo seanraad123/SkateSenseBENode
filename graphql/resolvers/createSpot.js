@@ -5,7 +5,7 @@ const Image = require("../../models/image")
 module.exports = async function createSpot({ spotInput }, req) {
 
     try {
-        let createdLocation = new Location ({
+        const createdLocation = new Location ({
             latitude: spotInput.location.latitude,
             longitude: spotInput.location.longitude
         })
@@ -29,7 +29,7 @@ module.exports = async function createSpot({ spotInput }, req) {
         const imageIDs = imageObjects.map(i => i._id);
         
 
-        let createdSpot = new Spot({
+        const createdSpot = new Spot({
             name: spotInput.name,
             owner: spotInput.owner,
             kickout_level: spotInput.kickout_level,

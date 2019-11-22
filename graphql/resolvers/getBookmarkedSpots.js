@@ -1,24 +1,19 @@
-const Spot = require("../../models/spot");
-const Bookmark = require("../../models/bookmark")
+const Spot = require('../../models/spot');
 
-module.exports = async function getBookmarkedSpots( { user_id }, req) {
+module.exports = async function getBookmarkedSpots({ user_id }, req) {
+  const test = await Spot.find({ user_id });
+  console.log(test);
 
-    const test = await Bookmark.find({ user_id })
-    console.log(test);
-    
 
-    const bookmarkedSpotsList = await Bookmark.find({ user_id }).populate([
-        {
-            path: 'spot',
-            model: 'Spot',
-        },
-    ]);
-  
+  const bookmarkedSpotsList = await Spot.find({ user_id }).populate([
+
+  ]);
+
   if (bookmarkedSpotsList === null) {
-    throw new Error("You have no spots bookmarked");
+    throw new Error('You have no spots bookmarked');
   }
 
 
   return bookmarkedSpotsList;
-  
-}
+};
+
