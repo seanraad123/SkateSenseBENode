@@ -1,11 +1,17 @@
 const User = require("../../models/user");
-const bcrypt = require("bcryptjs");
 
 module.exports = async function getUsers(req) {
-  const userList = await User.find({});
+  const userList = await User.find({}).populate([
+    {
+      path: 'bookmarks',
+      model: 'Spot',
+      populate: [
+        {path: 'images', model: 'Image'}, 
+        {path: 'location', model: 'Location' }
+      ]
+    }
+  ]);
 
-  console.log(userList)
-  
   if (userList === null) {
     const errorGetUsers = new Error("Cannot find users");
     errorGetUsers.code = 404;

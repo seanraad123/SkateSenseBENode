@@ -9,7 +9,7 @@ module.exports = async function deleteBookmark({ bookmarkInput }, req) {
 
   const userToUpdate = await User.findOne({_id: user_id })
 
-  let index = userToUpdate.bookmarks.indexOf(spot_id);
+  const index = userToUpdate.bookmarks.indexOf(spot_id);
 
   console.log('WAHT IS INDEX', userToUpdate)
 
