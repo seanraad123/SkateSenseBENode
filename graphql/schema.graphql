@@ -68,7 +68,7 @@ type RootMutation {
   createUser(userInput: userInputData): User!
   createSpot(spotInput: spotInputData): Spot!
   createBookmark(bookmarkInput: bookmarkInputData): Spot!
-  deleteBookmark(bookmarkInput: bookmarkInputData): Spot!
+  deleteBookmark(bookmarkInput: bookmarkInputData): User!
   deleteSpot(_id: ID!): String!
   deleteUser(_id: ID!): String!
   getUserCreatedSpots(user_id: ID!): [Spot]
