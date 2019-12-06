@@ -14,7 +14,6 @@ type AuthData {
   name: String!
   errorMsg: String
   hasError: Boolean
-  code: Int
 }
 
 type Spot {
