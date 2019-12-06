@@ -7,6 +7,16 @@ type User {
   bookmarks: [Spot]
 }
 
+type AuthData {
+  token: String!
+  user_id: String!
+  email: String!
+  name: String!
+  errorMsg: String
+  hasError: Boolean
+  code: Int
+}
+
 type Spot {
   _id: ID!
   name: String
@@ -65,6 +75,7 @@ type RootQuery {
 }
 
 type RootMutation {
+  login(email: String!, password: String!): AuthData!
   createUser(userInput: userInputData): User!
   createSpot(spotInput: spotInputData): Spot!
   createBookmark(bookmarkInput: bookmarkInputData): Spot!

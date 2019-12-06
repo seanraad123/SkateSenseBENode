@@ -8,5 +8,6 @@ module.exports = {
     deleteSpot: require("./deleteSpot"),
     createBookmark: require("./createBookmark"),
     deleteBookmark: require("./deleteBookmark"),
-    getUser: require("./getUser")
+    getUser: require("./getUser"),
+    login: require("./login")
 }
