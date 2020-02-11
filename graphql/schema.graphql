@@ -44,8 +44,8 @@ input bookmarkInputData {
 }
 
 input LocationInput {
-  latitude: String
-  longitude: String
+  latitude: Float
+  longitude: Float
 }
 
 input ImageInputData {

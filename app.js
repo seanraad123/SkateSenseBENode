@@ -4,7 +4,9 @@ const app = express();
 const graphqlHttp = require('express-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
+const bodyParser = require('body-parser');
 
+app.use(bodyParser({ limit: '20mb' }));
 app.use(
   '/graphql',
   graphqlHttp(async (request, response, graphQLParams) => ({
