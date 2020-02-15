@@ -5,12 +5,11 @@ module.exports = async function getUsers(request, res) {
   // console.log('WHAT IS res', res.request.isAuth);
   // console.log('graphQLParams', graphQLParams);
 
-  if (!res.request.isAuth) {
-    const error = new Error('Not authenticated!');
-    error.code = 401;
-    throw error;
-  }
-
+  // if (!res.request.isAuth) {
+  //   const error = new Error('Not authenticated!');
+  //   error.code = 401;
+  //   throw error;
+  // }
   const userList = await User.find({}).populate([
     {
       path: 'bookmarks',

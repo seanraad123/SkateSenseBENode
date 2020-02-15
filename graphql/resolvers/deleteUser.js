@@ -1,7 +1,7 @@
 const User = require('../../models/User');
 
 module.exports = async function deleteUser({ _id }, req, res) {
-  if (!res.request.isAuth) {
+  if (!req.isAuth) {
     const error = new Error('Not authenticated!');
     error.code = 401;
     throw error;

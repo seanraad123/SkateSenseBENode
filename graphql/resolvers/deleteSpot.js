@@ -1,14 +1,15 @@
 const Spot = require('../../models/spot');
 
 module.exports = async function deleteSpot({ _id }, req, res) {
-  if (!res.request.isAuth) {
-    const error = new Error('Not authenticated!');
-    error.code = 401;
-    throw error;
-  }
+  // if (!req.isAuth) {
+  //   const error = new Error('Not authenticated!');
+  //   error.code = 401;
+  //   throw error;
+  // }
 
-  const user_id = '5dd741edb65656757bb522c6';
+  // const user_id = '5dd741edb65656757bb522c6';
   let spot = '';
+  let spotToDelete = spot;
 
   try {
     spot = await Spot.findById(_id);
@@ -17,12 +18,10 @@ module.exports = async function deleteSpot({ _id }, req, res) {
   }
 
   try {
-    if (spot.owner.toString() === user_id.toString()) {
-      await Spot.findByIdAndDelete({ _id });
-    }
+    await Spot.findByIdAndDelete({ _id });
   } catch (e) {
     throw new Error('You do not own this spot');
   }
 
-  return 'Spot was deleted';
+  return _id;
 };

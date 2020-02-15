@@ -2,11 +2,12 @@ const User = require('../../models/user');
 const Spot = require('../../models/spot');
 
 module.exports = async function createBookmark({ bookmarkInput }, req, res) {
-  if (!res.request.isAuth) {
-    const error = new Error('Not authenticated!');
-    error.code = 401;
-    throw error;
-  }
+  // if (!req.isAuth) {
+  //   const error = new Error('Not authenticated!');
+  //   error.code = 401;
+  //   throw error;
+  // }
+
   // deconstruct
   const { spot_id, user_id } = bookmarkInput;
 

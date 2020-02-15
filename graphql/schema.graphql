@@ -70,7 +70,9 @@ input spotInputData {
 type RootQuery {
   getUsers: [User]
   getSpots: [Spot]
+  getUser(user_id: ID!): User
   getUserCreatedSpots(user_id: ID!): [Spot]
+  getUserBookmarkedSpots(user_id: ID!): [User]
 }
 
 type RootMutation {

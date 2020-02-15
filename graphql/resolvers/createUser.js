@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/user');
 
 module.exports = async function createUser({ userInput }, req, res) {
-  if (!res.request.isAuth) {
+  if (!req.isAuth) {
     const error = new Error('Not authenticated!');
     error.code = 401;
     throw error;
