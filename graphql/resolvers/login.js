@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
 const User = require('../../models/user');
-const setting = require('../../settings/settings');
 
 module.exports = async function login({ email, password }) {
   // find user
@@ -32,7 +31,7 @@ module.exports = async function login({ email, password }) {
         user_id: user._id.toString(),
         email: user.email,
       },
-      setting.system.secretkey,
+      process.env.SECRET_KEY,
       { expiresIn: '24h' }
     );
 

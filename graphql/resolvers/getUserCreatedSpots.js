@@ -1,6 +1,12 @@
 const Spot = require('../../models/spot');
 
-module.exports = async function getUserCreatedSpots({ user_id }, req) {
+module.exports = async function getUserCreatedSpots({ user_id }, req, res) {
+  if (!res.request.isAuth) {
+    const error = new Error('Not authenticated!');
+    error.code = 401;
+    throw error;
+  }
+
   const userCreatedSpotsList = await Spot.find({ owner: user_id }).populate([
     {
       path: 'images',

@@ -2,9 +2,14 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/user');
-const setting = require('../../settings/settings');
 
-module.exports = async function createUser({ userInput }, req) {
+module.exports = async function createUser({ userInput }, req, res) {
+  if (!res.request.isAuth) {
+    const error = new Error('Not authenticated!');
+    error.code = 401;
+    throw error;
+  }
+
   if (!validator.isEmail(userInput.email)) {
     throw new Error('E-Mail is invalid');
   }
@@ -41,7 +46,7 @@ module.exports = async function createUser({ userInput }, req) {
       userID: createdUser._id.toString(),
       email: createdUser.email,
     },
-    setting.system.secretkey,
+    process.env.SECRET_KEY,
     { expiresIn: '24h' }
   );
 

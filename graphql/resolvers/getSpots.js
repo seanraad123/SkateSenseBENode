@@ -2,7 +2,13 @@ const Spot = require('../../models/spot');
 const Bookmark = require('../../models/bookmark');
 const User = require('../../models/user');
 
-module.exports = async function getSpots(req) {
+module.exports = async function getSpots(req, res) {
+  if (!res.request.isAuth) {
+    const error = new Error('Not authenticated!');
+    error.code = 401;
+    throw error;
+  }
+
   const spotList = await Spot.find({}).populate([
     {
       path: 'images',

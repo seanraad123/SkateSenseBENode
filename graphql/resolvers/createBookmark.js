@@ -1,10 +1,14 @@
 const User = require('../../models/user');
 const Spot = require('../../models/spot');
 
-module.exports = async function createBookmark({ bookmarkInput }, req) {
+module.exports = async function createBookmark({ bookmarkInput }, req, res) {
+  if (!res.request.isAuth) {
+    const error = new Error('Not authenticated!');
+    error.code = 401;
+    throw error;
+  }
   // deconstruct
   const { spot_id, user_id } = bookmarkInput;
-
 
   // ? get user id from req
   // ? !isUser send error
@@ -25,7 +29,7 @@ module.exports = async function createBookmark({ bookmarkInput }, req) {
         $push: {
           bookmarks: spot_id,
         },
-      },
+      }
     );
 
     // no user found and no error thrown return your own
@@ -33,7 +37,6 @@ module.exports = async function createBookmark({ bookmarkInput }, req) {
       throw new Error('423: No user found.');
     }
     console.log(spot);
-
 
     return spot;
   } catch (e) {
