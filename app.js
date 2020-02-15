@@ -5,8 +5,18 @@ const graphqlHttp = require('express-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const bodyParser = require('body-parser');
+const jwt = require('express-jwt');
+const auth = require('./middleware/auth');
+require('dotenv').config();
 
 app.use(bodyParser({ limit: '20mb' }));
+
+// const loggingMiddleware = (req, res, next) => {
+//   console.log('ip:', req.ip);
+//   next();
+// };
+app.use(auth);
+
 app.use(
   '/graphql',
   graphqlHttp(async (request, response, graphQLParams) => ({

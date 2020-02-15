@@ -1,7 +1,7 @@
 const User = require('../../models/user');
 
 module.exports = async function getUsers(req) {
-  console.log(req);
+  // console.log(req);
 
   const userList = await User.find({}).populate([
     {
