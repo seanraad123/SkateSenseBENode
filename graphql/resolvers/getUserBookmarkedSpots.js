@@ -19,8 +19,6 @@ module.exports = async function getUserBookmarkedSpots({ user_id }, req, res) {
     },
   ]);
 
-  console.log(userBookmarkedSpotList[0].bookmarks);
-
   if (userBookmarkedSpotList === null) {
     throw new Error('You have no bookmarked spots');
   }

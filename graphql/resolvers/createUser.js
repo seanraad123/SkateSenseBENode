@@ -4,11 +4,11 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/user');
 
 module.exports = async function createUser({ userInput }, req, res) {
-  if (!req.isAuth) {
-    const error = new Error('Not authenticated!');
-    error.code = 401;
-    throw error;
-  }
+  // if (!req.isAuth) {
+  //   const error = new Error('Not authenticated!');
+  //   error.code = 401;
+  //   throw error;
+  // }
 
   if (!validator.isEmail(userInput.email)) {
     throw new Error('E-Mail is invalid');
@@ -49,8 +49,6 @@ module.exports = async function createUser({ userInput }, req, res) {
     process.env.SECRET_KEY,
     { expiresIn: '24h' }
   );
-
-  console.log(createdUser._doc, token);
 
   return {
     email: createdUser.email,
