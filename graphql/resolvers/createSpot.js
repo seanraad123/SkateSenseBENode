@@ -40,6 +40,7 @@ module.exports = async function createSpot({ spotInput }, req, res) {
       description: spotInput.description,
       location: createdLocation._id,
       images: imageIDs,
+      approved: false,
     });
 
     await createdSpot.save();

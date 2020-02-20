@@ -20,13 +20,26 @@ module.exports = async function deleteBookmark({ bookmarkInput }, req, res) {
 
   // console.log('WAHT IS INDEX', userToUpdate);
 
-  let newArray = [];
-  if (index >= 0) {
-    newArray = userToUpdate.bookmarks.splice(index, 1);
+  console.log('index', index);
+
+  console.log('before', userToUpdate.bookmarks);
+
+  let user;
+
+  if (userToUpdate.bookmarks.length === 1) {
+    await User.findOneAndUpdate({ _id: user_id }, { bookmarks: [] });
+    user = await User.findOne({ _id: user_id });
+    console.log('line 32 after', user.bookmarks);
+    return user;
   }
 
-  // const user = User.findOne({_id: user_id})
-  const user = User.findOneAndUpdate({ _id: user_id }, { $set: { bookmarks: newArray } });
+  userToUpdate.bookmarks.splice(index, 1);
+
+  await User.findOneAndUpdate({ _id: user_id }, { $set: { bookmarks: userToUpdate.bookmarks } });
+
+  user = await User.findOne({ _id: user_id });
+
+  console.log('line 42 after', user.bookmarks);
 
   return user;
 };

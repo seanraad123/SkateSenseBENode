@@ -37,8 +37,6 @@ module.exports = async function createBookmark({ bookmarkInput }, req, res) {
     if (!user) {
       throw new Error('423: No user found.');
     }
-    console.log(spot);
-
     return spot;
   } catch (e) {
     throw new Error(e);

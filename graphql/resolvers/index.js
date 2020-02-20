@@ -12,4 +12,5 @@ module.exports = {
   deleteBookmark: require('./deleteBookmark'),
   getUser: require('./getUser'),
   login: require('./login'),
+  getNotApprovedList: require('./getNotApprovedList'),
 };
