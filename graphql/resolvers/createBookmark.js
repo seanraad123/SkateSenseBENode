@@ -23,8 +23,13 @@ module.exports = async function createBookmark({ bookmarkInput }, req, res) {
       throw new Error('420: No spot found.');
     }
 
-    // get user
-    const user = await User.findOneAndUpdate(
+    const user = await User.findOne({_id: user_id})
+
+    if (user.bookmarks.includes(spot._id)){
+      return spot
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
       { _id: user_id },
       {
         $push: {
@@ -34,7 +39,7 @@ module.exports = async function createBookmark({ bookmarkInput }, req, res) {
     );
 
     // no user found and no error thrown return your own
-    if (!user) {
+    if (!updatedUser) {
       throw new Error('423: No user found.');
     }
     return spot;
