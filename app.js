@@ -32,7 +32,7 @@ app.use(
       response,
       graphQLParams,
     },
-    customFormatErrorFn: error => {
+    customFormatErrorFn: (error) => {
       console.log(error);
 
       return {

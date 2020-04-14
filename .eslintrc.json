@@ -6,6 +6,9 @@
   "extends": [
     "prettier"
   ],
+  "plugins": [
+    "prettier"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
