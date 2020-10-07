@@ -1,17 +1,16 @@
 const User = require('../../models/user');
 const jwt = require("jsonwebtoken");
 const Spot = require('../../models/spot');
-const setting = require("../../settings/settings");
 
-module.exports = async function createBookmark({ bookmarkInput }, req) {
-  // deconstruct
+module.exports = async function createBookmark({ bookmarkInput }, req, res) {
+
   const { spot_id, user_id } = bookmarkInput;
 
   const token = req.request.headers.authorization.split("Bearer ")[1]
   let decoded
 
   try {
-    decoded = jwt.verify(token, setting.system.secretkey);
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
   } catch(err) {
     return new Error("Not an authenticated user")
   }

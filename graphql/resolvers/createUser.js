@@ -2,7 +2,6 @@ const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../../models/user");
-const setting = require("../../settings/settings");
 
 module.exports = async function createUser({ userInput }, req) {
   console.log(userInput.email);
@@ -50,11 +49,9 @@ module.exports = async function createUser({ userInput }, req) {
       userID: createdUser._id.toString(),
       email: createdUser.email,
     },
-    setting.system.secretkey,
+    process.env.SECRET_KEY,
     { expiresIn: "24h" }
   );
-
-  console.log(createdUser._doc, token);
 
   return {
     email: createdUser.email,

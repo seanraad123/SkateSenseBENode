@@ -1,4 +1,4 @@
-const User = require("../../models/user");
+const User = require('../../models/user');
 
 module.exports = async function getBookmarks({user_id}, req) {
 
@@ -7,14 +7,14 @@ module.exports = async function getBookmarks({user_id}, req) {
       path: 'bookmarks',
       model: 'Spot',
       populate: [
-        {path: 'images', model: 'Image'}, 
-        {path: 'location', model: 'Location' }
-      ]
-    }
+        { path: 'images', model: 'Image' },
+        { path: 'location', model: 'Location' },
+      ],
+    },
   ]);
 
   if (user === null) {
-    const userError = new Error("Cannot find user");
+    const userError = new Error('Cannot find user');
     userError.code = 404;
 
     throw userError;

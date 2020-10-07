@@ -18,12 +18,15 @@ type AuthData {
 
 type Spot {
   _id: ID!
-  name: String
-  owner: User
-  description: String
-  images: [Image]
-  location: Location
-  kickout_level: Int
+  name: String!
+  owner: User!
+  description: String!
+  images: [Image]!
+  location: Location!
+  kickout_level: Int!
+  approved: Boolean
+  type: [String]!
+  contains: [String]!
 }
 
 type Image {
@@ -73,7 +76,10 @@ type RootQuery {
   getUsers: [User]
   getBookmarks(user_id: ID!): [Spot]
   getSpots: [Spot]
+  getUser(user_id: ID!): User
   getUserCreatedSpots(user_id: ID!): [Spot]
+  getUserBookmarkedSpots(user_id: ID!): [User]
+  getNotApprovedList: [Spot]
 }
 
 type RootMutation {

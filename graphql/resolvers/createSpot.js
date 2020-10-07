@@ -2,8 +2,12 @@ const Spot = require('../../models/spot');
 const Location = require('../../models/location');
 const Image = require('../../models/image');
 
-module.exports = async function createSpot({ spotInput }, req) {
-  console.log(spotInput);
+module.exports = async function createSpot({ spotInput }, req, res) {
+  // if (!req.isAuth) {
+  //   const error = new Error('Not authenticated!');
+  //   error.code = 401;
+  //   throw error;
+  // }
 
   try {
     const createdLocation = new Location({
@@ -36,6 +40,7 @@ module.exports = async function createSpot({ spotInput }, req) {
       description: spotInput.description,
       location: createdLocation._id,
       images: imageIDs,
+      approved: false,
     });
 
     await createdSpot.save();

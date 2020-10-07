@@ -1,18 +1,15 @@
 const User = require('../../models/user')
 const jwt = require("jsonwebtoken");
-const setting = require("../../settings/settings");
 
-
-module.exports = async function deleteBookmark({ bookmarkInput }, req) {
-
-  // deconstruct
+module.exports = async function deleteBookmark({ bookmarkInput }, req, res) {
+  
   const { spot_id, user_id } = bookmarkInput;
 
   const token = req.request.headers.authorization.split("Bearer ")[1]
   let decoded
 
   try {
-    decoded = jwt.verify(token, setting.system.secretkey);
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
   } catch(err) {
     return new Error("Not and authenticated user")
   }
@@ -27,14 +24,7 @@ module.exports = async function deleteBookmark({ bookmarkInput }, req) {
     return new Error("User doesn't exist")
   }
 
-  console.log("USER: ", userToUpdate)
-
-  console.log("USER BOOKMARKS", userToUpdate.bookmarks)
-
   const index = userToUpdate.bookmarks.indexOf(spot_id);
-
-  console.log("INDEX: ", index)
-
 
 
   let newArray = []
