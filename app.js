@@ -55,9 +55,13 @@ app.use((error, req, res, next) => {
   });
 });
 
-mongoose.connect(`${process.env.DB_HOSTNAME}:${process.env.PORT}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+
+mongoose
+  .connect(process.env.DB_HOSTNAME, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .catch(err => console.log(err));
+  
 app.listen(process.env.PORT);

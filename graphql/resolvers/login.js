@@ -5,6 +5,7 @@ const User = require("../../models/user");
 
 module.exports = async function login({ email, password }) {
   // find user
+  console.log('got here?')
 
   if (!validator.isEmail(email)) {
     return new Error("Invalid email format");
