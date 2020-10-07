@@ -13,6 +13,7 @@ type AuthData {
   name: String!
   errorMsg: String
   hasError: Boolean
+  bookmarks: [Spot]
 }
 
 type Spot {
@@ -67,8 +68,10 @@ input spotInputData {
   owner: String
 }
 
+
 type RootQuery {
   getUsers: [User]
+  getBookmarks(user_id: ID!): [Spot]
   getSpots: [Spot]
   getUserCreatedSpots(user_id: ID!): [Spot]
 }
@@ -77,11 +80,10 @@ type RootMutation {
   login(email: String!, password: String!): AuthData!
   createUser(userInput: userInputData): AuthData!
   createSpot(spotInput: spotInputData): Spot!
-  createBookmark(bookmarkInput: bookmarkInputData): Spot!
-  deleteBookmark(bookmarkInput: bookmarkInputData): User!
+  createBookmark(bookmarkInput: bookmarkInputData): [Spot]
+  deleteBookmark(bookmarkInput: bookmarkInputData): [Spot]
   deleteSpot(_id: ID!): String!
-  deleteUser(_id: ID!): String!
-  getUser(user_id: ID!): User
+  deleteUser(_id: ID!): User!
 }
 
 schema {

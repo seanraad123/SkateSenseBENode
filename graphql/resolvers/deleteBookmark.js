@@ -1,5 +1,6 @@
-const Spot = require('../../models/spot');
 const User = require('../../models/user')
+const jwt = require("jsonwebtoken");
+const setting = require("../../settings/settings");
 
 
 module.exports = async function deleteBookmark({ bookmarkInput }, req) {
@@ -7,22 +8,42 @@ module.exports = async function deleteBookmark({ bookmarkInput }, req) {
   // deconstruct
   const { spot_id, user_id } = bookmarkInput;
 
-  const userToUpdate = await User.findOne({_id: user_id })
+  const token = req.request.headers.authorization.split("Bearer ")[1]
+  let decoded
+
+  try {
+    decoded = jwt.verify(token, setting.system.secretkey);
+  } catch(err) {
+    return new Error("Not and authenticated user")
+  }
+
+  console.log(decoded)
+
+  let userToUpdate
+
+  try{
+    userToUpdate= await User.findOne({_id: decoded.user_id })
+  }catch(e){
+    return new Error("User doesn't exist")
+  }
+
+  console.log("USER: ", userToUpdate)
+
+  console.log("USER BOOKMARKS", userToUpdate.bookmarks)
 
   const index = userToUpdate.bookmarks.indexOf(spot_id);
 
-  console.log('WAHT IS INDEX', userToUpdate)
+  console.log("INDEX: ", index)
+
+
 
   let newArray = []
-  if (index >= 0) {
-    newArray = userToUpdate.bookmarks.splice( index, 1 );
+  if (index !== -1) {
+    userToUpdate.bookmarks.splice( index, 1 );
+    newArray = userToUpdate.bookmarks
   }
-
-  // const user = User.findOne({_id: user_id})
-  const user = User.findOneAndUpdate(
-    { _id: user_id },
-    { $set: { bookmarks: newArray } }
-  )
-
-  return user
+  
+  userToUpdate.save()
+  
+  return userToUpdate.bookmarks
 };

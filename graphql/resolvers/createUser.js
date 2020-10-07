@@ -1,25 +1,34 @@
-const validator = require('validator');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('../../models/user');
-const setting = require('../../settings/settings');
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const User = require("../../models/user");
+const setting = require("../../settings/settings");
 
 module.exports = async function createUser({ userInput }, req) {
+  console.log(userInput.email);
   if (!validator.isEmail(userInput.email)) {
-    throw new Error('E-Mail is invalid');
+    return new Error("E-Mail is invalid");
   }
 
   if (validator.isEmpty(userInput.name)) {
-    throw new Error('name is invalid.');
+    return new Error("name is invalid.");
   }
 
-  if (validator.isEmpty(userInput.password) || !validator.isLength(userInput.password, { min: 5 })) {
-    throw new Error('Password too short!');
+  if (
+    validator.isEmpty(userInput.password) ||
+    !validator.isLength(userInput.password, { min: 5 })
+  ) {
+    return new Error("Password too short!");
   }
 
-  const existingUser = await User.findOne({ email: userInput.email });
+  const existingEmail = await User.findOne({ email: userInput.email });
+  if (existingEmail !== null) {
+    return new Error(`${userInput.email} exists already!`);
+  }
+
+  const existingUser = await User.findOne({ name: userInput.name });
   if (existingUser !== null) {
-    throw new Error(`User with the address ${userInput.email} exists already!`);
+    return new Error(`${userInput.name} exists already!`);
   }
 
   const hashedPw = await bcrypt.hash(userInput.password, 12);
@@ -33,7 +42,7 @@ module.exports = async function createUser({ userInput }, req) {
 
     await createdUser.save();
   } catch (errorCreateingUser) {
-    throw new Error('Cannot create the user');
+    return new Error("Cannot create the user");
   }
 
   const token = jwt.sign(
@@ -42,7 +51,7 @@ module.exports = async function createUser({ userInput }, req) {
       email: createdUser.email,
     },
     setting.system.secretkey,
-    { expiresIn: '24h' }
+    { expiresIn: "24h" }
   );
 
   console.log(createdUser._doc, token);

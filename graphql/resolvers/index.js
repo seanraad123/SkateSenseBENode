@@ -8,6 +8,6 @@ module.exports = {
   deleteSpot: require('./deleteSpot'),
   createBookmark: require('./createBookmark'),
   deleteBookmark: require('./deleteBookmark'),
-  getUser: require('./getUser'),
+  getBookmarks: require('./getBookmarks'),
   login: require('./login'),
 };

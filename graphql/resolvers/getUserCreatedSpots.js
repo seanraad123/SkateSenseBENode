@@ -21,5 +21,5 @@ module.exports = async function getUserCreatedSpots({ user_id }, req) {
     throw new Error('You have no created spots');
   }
 
-  return userCreatedSpotsList;
+  return userCreatedSpotsList.reverse();
 };
