@@ -1,4 +1,5 @@
 const Spot = require('../../models/spot');
+const jwt = require("jsonwebtoken");
 
 module.exports = async function deleteSpot({ _id }, req, res) {
   // if (!req.isAuth) {
@@ -8,8 +9,6 @@ module.exports = async function deleteSpot({ _id }, req, res) {
   // }
 
   // const user_id = '5dd741edb65656757bb522c6';
-  let spot = '';
-  let spotToDelete = spot;
 
   const token = req.request.headers.authorization.split("Bearer ")[1]
   let decoded
@@ -17,7 +16,7 @@ module.exports = async function deleteSpot({ _id }, req, res) {
   try {
     decoded = jwt.verify(token, process.env.SECRET_KEY);
   } catch(err) {
-    console.log(err)
+    return new Error('Not authenticated')
   }
 
   let spot = ''

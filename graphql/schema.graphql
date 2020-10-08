@@ -77,7 +77,7 @@ type RootQuery {
   getBookmarks(user_id: ID!): [Spot]
   getSpots: [Spot]
   getUser(user_id: ID!): User
-  getUserCreatedSpots(user_id: ID!): [Spot]
+  getUserCreatedSpots(locationInput: LocationInput!): [Spot]
   getUserBookmarkedSpots(user_id: ID!): [User]
   getNotApprovedList: [Spot]
 }
