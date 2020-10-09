@@ -4,7 +4,7 @@ const User = require('../../models/user');
 
 module.exports = async function getSpots(req, res) {
 
-  const spotList = await Spot.find({}).populate([
+  const spotList = await Spot.find({ approved: true }).populate([
     {
       path: 'images',
       model: 'Image',
@@ -28,7 +28,6 @@ module.exports = async function getSpots(req, res) {
   if (spotList === null) {
     throw new Error('Cannot find spots');
   }
-
 
   return spotList;
 };

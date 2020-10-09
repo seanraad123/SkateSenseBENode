@@ -41,6 +41,8 @@ module.exports = async function createSpot({ spotInput }, req, res) {
       location: createdLocation._id,
       images: imageIDs,
       approved: false,
+      spotType: spotInput.spotType,
+      contains: spotInput.contains
     });
 
     await createdSpot.save();

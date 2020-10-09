@@ -40,12 +40,10 @@ const spotSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    type: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    spotType: {
+      type: String,
+      required: true,
+    },
     contains: [
       {
         type: String,

@@ -25,7 +25,7 @@ type Spot {
   location: Location!
   kickout_level: Int!
   approved: Boolean
-  type: [String]!
+  spotType: String!
   contains: [String]!
   distance: Float
 }
@@ -64,12 +64,14 @@ input userInputData {
 }
 
 input spotInputData {
-  name: String
-  location: LocationInput
-  images: [ImageInputData]
-  description: String
+  name: String!
+  location: LocationInput!
+  images: [ImageInputData]!
+  description: String!
   kickout_level: Int
   owner: String
+  spotType: String!
+  contains: [String]!
 }
 
 
@@ -91,6 +93,8 @@ type RootMutation {
   deleteBookmark(bookmarkInput: bookmarkInputData): [Spot]
   deleteSpot(_id: ID!): String!
   deleteUser(_id: ID!): User!
+  approveSpotMutation(_id: ID!): String!
+
 }
 
 schema {
