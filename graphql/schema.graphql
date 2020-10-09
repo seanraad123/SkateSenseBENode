@@ -27,6 +27,7 @@ type Spot {
   approved: Boolean
   type: [String]!
   contains: [String]!
+  distance: Float
 }
 
 type Image {
