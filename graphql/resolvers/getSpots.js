@@ -25,6 +25,7 @@ module.exports = async function getSpots(req, res) {
     },
   ]);
 
+
   if (spotList === null) {
     throw new Error('Cannot find spots');
   }

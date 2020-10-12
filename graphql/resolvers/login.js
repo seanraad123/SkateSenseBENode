@@ -5,8 +5,6 @@ const User = require("../../models/user");
 
 module.exports = async function login({ email, password }) {
   // find user
-  console.log('got here?')
-
   if (!validator.isEmail(email)) {
     return new Error("Invalid email format");
   }
@@ -33,6 +31,7 @@ module.exports = async function login({ email, password }) {
       {
         user_id: user._id.toString(),
         email: user.email,
+        admin: user.admin
       },
       process.env.SECRET_KEY,
       { expiresIn: "24h" }

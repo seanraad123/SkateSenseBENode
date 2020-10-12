@@ -22,6 +22,10 @@ const userSchema = new Schema(
         ref: 'spot',
       },
     ],
+    admin:{
+      type: Boolean,
+      required: true
+    },
   },
   {
     timestamps: true,

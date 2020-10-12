@@ -28,6 +28,7 @@ type Spot {
   spotType: String!
   contains: [String]!
   distance: Float
+  createdAt: String
 }
 
 type Image {
@@ -74,7 +75,6 @@ input spotInputData {
   contains: [String]!
 }
 
-
 type RootQuery {
   getUsers: [User]
   getBookmarks(user_id: ID!): [Spot]
@@ -94,7 +94,6 @@ type RootMutation {
   deleteSpot(_id: ID!): String!
   deleteUser(_id: ID!): User!
   approveSpotMutation(_id: ID!): String!
-
 }
 
 schema {
