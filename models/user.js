@@ -22,10 +22,16 @@ const userSchema = new Schema(
         ref: 'spot',
       },
     ],
-    admin:{
+    admin: {
       type: Boolean,
-      required: true
+      required: true,
     },
+    spots: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Spot',
+      },
+    ],
   },
   {
     timestamps: true,

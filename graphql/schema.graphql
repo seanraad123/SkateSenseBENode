@@ -4,6 +4,7 @@ type User {
   email: String!
   password: String!
   bookmarks: [Spot]
+  spots: [Spot]
 }
 
 type AuthData {
@@ -78,7 +79,7 @@ input spotInputData {
 type RootQuery {
   getUsers: [User]
   getBookmarks(user_id: ID!): [Spot]
-  getSpots: [Spot]
+  getSpots(locationInput: LocationInput): [Spot]
   getUser(user_id: ID!): User
   getUserCreatedSpots(locationInput: LocationInput!): [Spot]
   getUserBookmarkedSpots(user_id: ID!): [User]

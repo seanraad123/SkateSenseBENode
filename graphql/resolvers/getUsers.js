@@ -13,7 +13,7 @@ module.exports = async function getUsers(request, res) {
   const userList = await User.find({}).populate([
     {
       path: 'bookmarks',
-      model: 'Spot',
+      path: 'spots',
       populate: [
         { path: 'images', model: 'Image' },
         { path: 'location', model: 'Location' },

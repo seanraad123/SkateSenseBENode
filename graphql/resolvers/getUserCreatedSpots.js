@@ -16,6 +16,7 @@ module.exports = async function getUserCreatedSpots({ locationInput }, req, res)
     return new Error('Not authenticated')
   }
 
+  
   const userCreatedSpotsList = await Spot.find({ owner: decoded.user_id }).populate([
     {
       path: 'images',

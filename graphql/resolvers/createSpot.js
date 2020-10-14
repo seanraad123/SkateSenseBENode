@@ -1,6 +1,7 @@
 const Spot = require('../../models/spot');
 const Location = require('../../models/location');
 const Image = require('../../models/image');
+const User = require('../../models/user');
 
 module.exports = async function createSpot({ spotInput }, req, res) {
   // if (!req.isAuth) {
@@ -8,6 +9,7 @@ module.exports = async function createSpot({ spotInput }, req, res) {
   //   error.code = 401;
   //   throw error;
   // }
+  const owner = await User.findOne({ _id: spotInput.owner });
 
   try {
     const createdLocation = new Location({
@@ -42,10 +44,13 @@ module.exports = async function createSpot({ spotInput }, req, res) {
       images: imageIDs,
       approved: false,
       spotType: spotInput.spotType,
-      contains: spotInput.contains
+      contains: spotInput.contains,
     });
 
     await createdSpot.save();
+
+    owner.spots.push(createdSpot);
+    owner.save();
 
     return {
       ...createdSpot._doc,

@@ -1,8 +1,7 @@
 const User = require('../../models/user');
 
-module.exports = async function getBookmarks({user_id}, req) {
-
-  const user = await User.findOne({_id: user_id}).populate([
+module.exports = async function getBookmarks({ user_id }, req) {
+  const user = await User.findOne({ _id: user_id }).populate([
     {
       path: 'bookmarks',
       model: 'Spot',
@@ -18,7 +17,5 @@ module.exports = async function getBookmarks({user_id}, req) {
     userError.code = 404;
 
     throw userError;
-  }
-
-  else return user.bookmarks;
-}
+  } else return user.bookmarks;
+};

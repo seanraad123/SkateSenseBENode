@@ -2,7 +2,8 @@ const Spot = require('../../models/spot');
 const Bookmark = require('../../models/bookmark');
 const User = require('../../models/user');
 
-module.exports = async function getSpots(req, res) {
+module.exports = async function getSpots({ locationInput }, req, res) {
+  console.log(locationInput);
 
   const spotList = await Spot.find({ approved: true }).populate([
     {
@@ -24,7 +25,6 @@ module.exports = async function getSpots(req, res) {
       populate: { path: 'user', model: 'User' },
     },
   ]);
-
 
   if (spotList === null) {
     throw new Error('Cannot find spots');
