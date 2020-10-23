@@ -1,15 +1,16 @@
 const User = require('../../models/user');
+const jwt = require('jsonwebtoken');
 
 module.exports = async function getUsers(request, res) {
-  // console.log('WHAT IS REQUEST', request);
-  // console.log('WHAT IS res', res.request.isAuth);
-  // console.log('graphQLParams', graphQLParams);
+  const token = req.request.headers.authorization.split('Bearer ')[1];
+  let decoded;
 
-  // if (!res.request.isAuth) {
-  //   const error = new Error('Not authenticated!');
-  //   error.code = 401;
-  //   throw error;
-  // }
+  try {
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
+  } catch (err) {
+    return new Error('Not and authenticated user');
+  }
+
   const userList = await User.find({}).populate([
     {
       path: 'bookmarks',

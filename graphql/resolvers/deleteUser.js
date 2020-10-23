@@ -1,10 +1,14 @@
 const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
 
 module.exports = async function deleteUser({ _id }, req, res) {
-  if (!req.isAuth) {
-    const error = new Error('Not authenticated!');
-    error.code = 401;
-    throw error;
+  const token = req.request.headers.authorization.split('Bearer ')[1];
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
+  } catch (err) {
+    return new Error('Not and authenticated user');
   }
 
   try {

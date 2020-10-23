@@ -1,8 +1,18 @@
 const Spot = require('../../models/spot');
 const Bookmark = require('../../models/bookmark');
 const User = require('../../models/user');
+const jwt = require('jsonwebtoken');
 
 module.exports = async function getNotApprovedList(req, res) {
+  const token = req.request.headers.authorization.split('Bearer ')[1];
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, process.env.SECRET_KEY);
+  } catch (err) {
+    return new Error('Not and authenticated user');
+  }
+
   const spotList = await Spot.find({ approved: false }).populate([
     {
       path: 'images',

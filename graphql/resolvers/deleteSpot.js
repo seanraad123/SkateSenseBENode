@@ -3,14 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 
 module.exports = async function deleteSpot({ _id }, req, res) {
-  // if (!req.isAuth) {
-  //   const error = new Error('Not authenticated!');
-  //   error.code = 401;
-  //   throw error;
-  // }
-
-  // const user_id = '5dd741edb65656757bb522c6';
-
   const token = req.request.headers.authorization.split('Bearer ')[1];
   let decoded;
 

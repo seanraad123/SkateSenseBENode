@@ -1,5 +1,5 @@
 const Spot = require('../../models/spot');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 module.exports = async function approveSpotMutation({ _id }, req, res) {
   // if (!req.isAuth) {
@@ -10,20 +10,20 @@ module.exports = async function approveSpotMutation({ _id }, req, res) {
 
   // const user_id = '5dd741edb65656757bb522c6';
 
-  console.log(_id)
+  console.log(_id);
 
-  const token = req.request.headers.authorization.split("Bearer ")[1]
-  let decoded
+  const token = req.request.headers.authorization.split('Bearer ')[1];
+  let decoded;
 
   try {
     decoded = jwt.verify(token, process.env.SECRET_KEY);
-  } catch(err) {
-    return new Error('Not authenticated')
+  } catch (err) {
+    return new Error('Not authenticated');
   }
 
-  let spot = ''
+  let spot = '';
 
-  try{
+  try {
     spot = await Spot.findById(_id);
   } catch (e) {
     throw new Error('Unable to find spot');
@@ -32,8 +32,5 @@ module.exports = async function approveSpotMutation({ _id }, req, res) {
   spot.approved = true;
   spot.save();
 
-  
-  return "Spot was approved!";
-  
-      
-}
+  return 'Spot was approved!';
+};
