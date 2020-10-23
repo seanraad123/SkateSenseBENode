@@ -25,7 +25,7 @@ app.use(
   graphqlExpress(async (request, response, graphQLParams) => ({
     schema: graphqlSchema,
     rootValue: graphqlResolver,
-    graphiql: true,
+    // graphiql: true,
     context: {
       request,
       response,
@@ -54,8 +54,6 @@ app.use((error, req, res, next) => {
     data: data,
   });
 });
-
-console.log(process.env.DB_HOSTNAME);
 
 mongoose
   .connect(process.env.DB_HOSTNAME, {
