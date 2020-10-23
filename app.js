@@ -31,7 +31,7 @@ app.use(
       response,
       graphQLParams,
     },
-    customFormatErrorFn: (error) => {
+    customFormatErrorFn: error => {
       console.log(error);
 
       return {
@@ -55,13 +55,12 @@ app.use((error, req, res, next) => {
   });
 });
 
-
 mongoose
   .connect(process.env.DB_HOSTNAME, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .catch(err => console.log(err));
-  
+
 app.listen(process.env.PORT);

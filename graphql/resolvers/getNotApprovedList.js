@@ -24,6 +24,8 @@ module.exports = async function getNotApprovedList(req, res) {
     },
   ]);
 
+  console.log('SPOTLIST', spotList);
+
   if (spotList === null) {
     throw new Error('Cannot find spots');
   }
