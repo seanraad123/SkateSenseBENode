@@ -2,6 +2,8 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function getUsers(req, res) {
+  console.log('REQUEST', req);
+
   const token = req.request.headers.authorization.split('Bearer ')[1];
   let decoded;
 
