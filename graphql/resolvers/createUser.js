@@ -1,23 +1,20 @@
-const validator = require("validator");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const User = require("../../models/user");
+const validator = require('validator');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const User = require('../../models/user');
 
 module.exports = async function createUser({ userInput }, req) {
   console.log(userInput.email);
   if (!validator.isEmail(userInput.email)) {
-    return new Error("E-Mail is invalid");
+    return new Error('E-Mail is invalid');
   }
 
   if (validator.isEmpty(userInput.name)) {
-    return new Error("name is invalid.");
+    return new Error('name is invalid.');
   }
 
-  if (
-    validator.isEmpty(userInput.password) ||
-    !validator.isLength(userInput.password, { min: 5 })
-  ) {
-    return new Error("Password too short!");
+  if (validator.isEmpty(userInput.password) || !validator.isLength(userInput.password, { min: 5 })) {
+    return new Error('Password too short!');
   }
 
   const existingEmail = await User.findOne({ email: userInput.email });
@@ -37,12 +34,12 @@ module.exports = async function createUser({ userInput }, req) {
       email: userInput.email,
       name: userInput.name,
       password: hashedPw,
-      admin: false
+      admin: false,
     });
 
     await createdUser.save();
   } catch (errorCreateingUser) {
-    return new Error("Cannot create the user");
+    return new Error('Cannot create the user');
   }
 
   const token = jwt.sign(
@@ -51,7 +48,7 @@ module.exports = async function createUser({ userInput }, req) {
       email: createdUser.email,
     },
     process.env.SECRET_KEY,
-    { expiresIn: "24h" }
+    { expiresIn: '24h' }
   );
 
   return {
@@ -59,6 +56,6 @@ module.exports = async function createUser({ userInput }, req) {
     name: createdUser.name,
     user_id: createdUser._id.toString(),
     token,
-    admin: createdUser.admin
+    admin: createdUser.admin,
   };
 };

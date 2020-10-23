@@ -55,12 +55,15 @@ app.use((error, req, res, next) => {
   });
 });
 
+console.log(process.env.DB_HOSTNAME);
+
 mongoose
   .connect(process.env.DB_HOSTNAME, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .catch(err => console.log(err));
+  .then(console.log('CONNECTED'))
+  .catch(err => console.log('Connection error', err));
 
 app.listen(process.env.PORT);
