@@ -6,6 +6,10 @@ module.exports = async function deleteSpot({ _id }, req, res) {
   if (req.request.isAuth) {
     let spot = '';
 
+    const token = req.request.headers.authorization.split('Bearer ')[1];
+
+    let decoded = jwt.verify(token, process.env.SECRET_KEY);
+
     try {
       spot = await Spot.findById(_id);
     } catch (e) {
