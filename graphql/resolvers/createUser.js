@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/user');
 
 module.exports = async function createUser({ userInput }, req) {
-  console.log(userInput.email);
   if (!validator.isEmail(userInput.email)) {
     return new Error('E-Mail is invalid');
   }

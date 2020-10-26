@@ -2,9 +2,6 @@ const Spot = require('../../models/spot');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function getSpots({ locationInput }, req, res) {
-  console.log(req.request.isAuth);
-  console.log('req', req);
-
   if (req.request.isAuth) {
     const spotList = await Spot.find({ approved: true }).populate([
       {
