@@ -22,8 +22,6 @@ module.exports = async function deleteSpot({ _id }, req, res) {
       await Spot.findByIdAndDelete(_id, function(err, docs) {
         if (err) {
           console.log(err);
-        } else {
-          console.log('Deleted : ', docs);
         }
       });
 
