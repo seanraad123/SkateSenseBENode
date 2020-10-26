@@ -6,6 +6,7 @@ const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 const bodyParser = require('body-parser');
 const auth = require('./middleware/auth');
+const safeCompare = require('safe-compare');
 require('dotenv').config();
 
 app.use(bodyParser({ limit: '20mb' }));
@@ -25,7 +26,7 @@ app.use(
   graphqlExpress(async (request, response, graphQLParams) => ({
     schema: graphqlSchema,
     rootValue: graphqlResolver,
-    // graphiql: true,
+    graphiql: true,
     context: {
       request,
       response,
@@ -43,6 +44,20 @@ app.use(
     },
   }))
 );
+
+// app.post('/webhook', (req, res) => {
+//   const expoSignature = req.headers['expo-signature'];
+//   // process.env.SECRET_WEBHOOK_KEY has to match <webhook-secret> value set with `expo webhooks:add ...` command
+//   const hmac = crypto.createHmac('sha1', process.env.SECRET_WEBHOOK_KEY);
+//   hmac.update(req.body);
+//   const hash = `sha1=${hmac.digest('hex')}`;
+//   if (!safeCompare(expoSignature, hash)) {
+//     res.status(500).send("Signatures didn't match!");
+//   } else {
+//     // do something here, like send a notification to Slack!
+//     res.send('OK!');
+//   }
+// });
 
 app.use((error, req, res, next) => {
   //console.log('THIS HIT!');

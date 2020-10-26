@@ -48,7 +48,7 @@ module.exports = async function createUser({ userInput }, req) {
       email: createdUser.email,
     },
     process.env.SECRET_KEY,
-    { expiresIn: '24h' }
+    { expiresIn: '60d' }
   );
 
   return {

@@ -17,6 +17,7 @@ type AuthData {
   bookmarks: [Spot]
 }
 
+
 type Spot {
   _id: ID!
   name: String!

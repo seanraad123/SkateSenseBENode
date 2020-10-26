@@ -12,5 +12,5 @@ module.exports = {
   getBookmarks: require('./getBookmarks'),
   login: require('./login'),
   getNotApprovedList: require('./getNotApprovedList'),
-  approveSpotMutation: require('./approveSpotMutation')
+  approveSpotMutation: require('./approveSpotMutation'),
 };

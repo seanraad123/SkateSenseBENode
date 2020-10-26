@@ -2,33 +2,26 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function getUsers(req, res) {
-  console.log('REQUEST', req);
+  if (res.request.isAuth) {
+    const userList = await User.find({}).populate([
+      {
+        path: 'bookmarks',
+        path: 'spots',
+        populate: [
+          { path: 'images', model: 'Image' },
+          { path: 'location', model: 'Location' },
+        ],
+      },
+    ]);
 
-  const token = req.request.headers.authorization.split('Bearer ')[1];
-  let decoded;
+    if (userList === null) {
+      const errorGetUsers = new Error('Cannot find users');
+      errorGetUsers.code = 404;
+      throw errorGetUsers;
+    }
 
-  try {
-    decoded = jwt.verify(token, process.env.SECRET_KEY);
-  } catch (err) {
-    return new Error('Not and authenticated user');
+    return userList;
+  } else {
+    return new Error('Not authenticated');
   }
-
-  const userList = await User.find({}).populate([
-    {
-      path: 'bookmarks',
-      path: 'spots',
-      populate: [
-        { path: 'images', model: 'Image' },
-        { path: 'location', model: 'Location' },
-      ],
-    },
-  ]);
-
-  if (userList === null) {
-    const errorGetUsers = new Error('Cannot find users');
-    errorGetUsers.code = 404;
-    throw errorGetUsers;
-  }
-
-  return userList;
 };
