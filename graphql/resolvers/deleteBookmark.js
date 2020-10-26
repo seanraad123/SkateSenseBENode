@@ -2,7 +2,7 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function deleteBookmark({ bookmarkInput }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     const { spot_id, user_id } = bookmarkInput;
 
     let userToUpdate;

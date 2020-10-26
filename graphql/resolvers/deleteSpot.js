@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 
 module.exports = async function deleteSpot({ _id }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     let spot = '';
 
     try {

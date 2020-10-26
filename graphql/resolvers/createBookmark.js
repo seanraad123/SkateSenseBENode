@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const Spot = require('../../models/spot');
 
 module.exports = async function createBookmark({ bookmarkInput }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     const { spot_id, user_id } = bookmarkInput;
 
     // start try block

@@ -4,7 +4,7 @@ const Bookmark = require('../../models/bookmark');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function getNotApprovedList(req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     const spotList = await Spot.find({ approved: false }).populate([
       {
         path: 'images',

@@ -5,7 +5,7 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function createSpot({ spotInput }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     const owner = await User.findOne({ _id: spotInput.owner });
 
     try {

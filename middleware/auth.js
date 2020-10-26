@@ -16,10 +16,12 @@ module.exports = (req, res, next) => {
     decodedToken = jwt.verify(token, process.env.SECRET_KEY);
   } catch (err) {
     req.isAuth = false;
+
     return next();
   }
   if (!decodedToken) {
     req.isAuth = false;
+
     return next();
   }
   req.userId = decodedToken.userId;

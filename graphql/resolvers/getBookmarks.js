@@ -1,8 +1,8 @@
 const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
-module.exports = async function getBookmarks({ user_id }, req) {
-  if (res.request.isAuth) {
+module.exports = async function getBookmarks({ user_id }, req, res) {
+  if (req.request.isAuth) {
     const user = await User.findOne({ _id: user_id }).populate([
       {
         path: 'bookmarks',

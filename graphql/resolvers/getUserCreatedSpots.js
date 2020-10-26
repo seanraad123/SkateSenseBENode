@@ -3,7 +3,11 @@ const jwt = require('jsonwebtoken');
 const distance = require('../../utils/distanceCalc');
 
 module.exports = async function getUserCreatedSpots({ locationInput }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
+    const token = req.request.headers.authorization.split('Bearer ')[1];
+
+    let decoded = jwt.verify(token, process.env.SECRET_KEY);
+
     const userCreatedSpotsList = await Spot.find({ owner: decoded.user_id }).populate([
       {
         path: 'images',

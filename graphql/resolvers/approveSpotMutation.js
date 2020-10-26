@@ -2,7 +2,7 @@ const Spot = require('../../models/spot');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function approveSpotMutation({ _id }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     let spot = '';
 
     try {
