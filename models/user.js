@@ -28,7 +28,7 @@ const userSchema = new Schema(
     },
     push_token: {
       type: String,
-      required: false,
+      required: true,
     },
     spots: [
       {
