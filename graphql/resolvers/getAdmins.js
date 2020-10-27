@@ -1,7 +1,7 @@
 const User = require('../../models/user');
 
 module.exports = async function getAdmins(req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     const admins = await User.find({ admin: true });
 
     if (admins === null) {
