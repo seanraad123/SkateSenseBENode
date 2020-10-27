@@ -5,6 +5,7 @@ type User {
   password: String!
   bookmarks: [Spot]
   spots: [Spot]
+  push_token: String
 }
 
 type AuthData {
@@ -64,6 +65,7 @@ input userInputData {
   email: String!
   name: String!
   password: String!
+  push_token: String!
 }
 
 input spotInputData {

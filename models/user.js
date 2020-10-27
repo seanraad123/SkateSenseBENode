@@ -26,6 +26,10 @@ const userSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    push_token: {
+      type: String,
+      required: false,
+    },
     spots: [
       {
         type: Schema.Types.ObjectId,

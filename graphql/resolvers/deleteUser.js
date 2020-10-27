@@ -2,7 +2,7 @@ const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function deleteUser({ _id }, req, res) {
-  if (res.request.isAuth) {
+  if (req.request.isAuth) {
     try {
       const user = await User.findById(_id);
     } catch (e) {
