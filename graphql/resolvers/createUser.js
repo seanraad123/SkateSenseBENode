@@ -34,6 +34,7 @@ module.exports = async function createUser({ userInput }, req) {
       name: userInput.name,
       password: hashedPw,
       admin: false,
+      name: userInput.push_token,
     });
 
     await createdUser.save();
@@ -56,5 +57,6 @@ module.exports = async function createUser({ userInput }, req) {
     user_id: createdUser._id.toString(),
     token,
     admin: createdUser.admin,
+    push_token: createdUser.push_token,
   };
 };
