@@ -13,4 +13,5 @@ module.exports = {
   login: require('./login'),
   getNotApprovedList: require('./getNotApprovedList'),
   approveSpotMutation: require('./approveSpotMutation'),
+  getAdmins: require('./getAdmins'),
 };
