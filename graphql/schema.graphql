@@ -15,6 +15,7 @@ type AuthData {
   name: String!
   errorMsg: String
   hasError: Boolean
+  push_token: String
   bookmarks: [Spot]
 }
 
