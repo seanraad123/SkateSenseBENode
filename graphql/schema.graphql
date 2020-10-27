@@ -89,6 +89,7 @@ type RootQuery {
   getUserBookmarkedSpots(user_id: ID!): [User]
   getNotApprovedList: [Spot]
   getAdmins: [User]
+  getSpotOwner(user_id: ID!): User
 }
 
 type RootMutation {
